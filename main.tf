@@ -34,11 +34,9 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
         }
       }
       dynamic "s3_origin_config" {
-        for_each = origin.value.identity == null ? [] : [for i in [origin.value.identity] : {
-          identity = i
-        }]
+        for_each = origin.value.identity == null ? [] : [origin.value.identity]
         content {
-          origin_access_identity = s3_origin_config.value.identity
+          origin_access_identity = s3_origin_config.value
         }
       }
     }
