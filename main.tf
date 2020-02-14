@@ -38,7 +38,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
           origin_identity = i.identity
         }]
         content {
-          origin_access_identity = s3_origin_config.origin_identity
+          origin_access_identity = s3_origin_config.value.origin_identity
         }
       }
     }
