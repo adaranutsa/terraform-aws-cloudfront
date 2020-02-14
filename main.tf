@@ -33,8 +33,10 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
           value = custom_header.value.value
         }
       }
-      s3_origin_config {
-        origin_access_identity = origin.value.identity
+      dynamic "s3_origin_config" {
+        for_each = origin.value.identity == null ? [] : for i in origin.value : {
+          origin_access_identity = i.identity
+        }
       }
     }
   }
